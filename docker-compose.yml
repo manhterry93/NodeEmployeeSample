@@ -2,12 +2,16 @@ version: '3.4'
 services:
     web:
         build: 
-            context: .
+            context: ./app
             target: dev
-        volumes:
-            - .:/src
         command: npm start
         ports:
             - "3000:3000"
         environment:
             NODE_ENV: dev
+    nginx:
+        restart: always
+        build: 
+            context: ./nginx
+        ports: 
+            - "80:80"
