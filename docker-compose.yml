@@ -9,9 +9,19 @@ services:
             - "3000:3000"
         environment:
             NODE_ENV: dev
+            DATABASE_URL: postgres://postgres:mysecretpassword@postgres:5435
     nginx:
         restart: always
         build: 
             context: ./nginx
         ports: 
             - "80:80"
+    # postgres:
+    #     image: postgres:13.1
+    #     ports: 
+    #         - "5435:5435"
+    #     environment: 
+    #         POSTGRES_USER: postgres
+    #         POSTGRES_DB: postgres
+    #         POSTGRES_PASSWORD: mysecretpassword
+        

@@ -2,25 +2,35 @@ var express = require('express');
 const { Client } = require('pg')
 const client = new Client({
   user:'postgres',
-  host:'localhost',
-  database:'employee',
-  port:'5432'
+  host:'192.168.1.200',
+  database:'postgres',
+  port:'5435',
+  password:'mysecretpassword'
 });
 
-await client.connect()
+client.connect()
 
 var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
   // Demo get the user
-  client.query('SELECT * FROM user', (er, re)=>{
-    console.log('result: '+re);
-    res.send('ok');
+  client.query('SELECT * FROM public.user', (er, re)=>{
+    if(er!=null) {
+      console.log('error: ',er);
+      res.send('error when query users');
+    }
+    else {
+      var result = '';
+      console.log('result: ', re);
+      for(let row of re.rows){
+        result+=JSON.stringify(row)+'\n';
+      }
+      res.send(result);
+    }
     res.end();
-    client.end();
   })
+ 
 });
 
 module.exports = router;
