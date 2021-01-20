@@ -14,7 +14,7 @@ services:
     manh-nginx:
         image: nginx
         ports: 
-            - 80:80
+            - 8001:80
         container_name: manh-employee-nginx
         depends_on: 
             - manh-web
