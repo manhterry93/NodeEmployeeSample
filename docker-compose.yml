@@ -11,6 +11,8 @@ services:
         # environment:
         #     NODE_ENV: dev
         #     DATABASE_URL: postgres://postgres:postgres@postgres:5435
+        sysctls:
+            - net.core.somaxconn=4096  
     manh-nginx:
         image: nginx
         ports: 
